@@ -40,8 +40,7 @@ function Details() {
 
     return ( 
     <div>
-        <div className="table-responsive">
-            <br/>
+        <div className="table-responsive" style={{ marginTop: '15px' }}>
             <h5>{restaurant.name}
                 {currentUser ? (
                     <button
