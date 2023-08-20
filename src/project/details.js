@@ -11,6 +11,12 @@ function Details() {
     const [displayAddress, setAddress] = useState();
     const [transaction, setTransaction] = useState();
     const [currentUser, setCurrentUser] = useState({});
+    const [likes, setLikes] = useState([]);
+
+    const fetchLikes = async () => {
+        const likes = await service.getLikesForRestaurant(id);
+        setLikes(likes);
+    };
 
     const dispatch = useDispatch();
     const fetchUser = async () => {
@@ -36,6 +42,7 @@ function Details() {
     useEffect(() => {
         fetchUser();
         fetchRestaurant();
+        fetchLikes();
     }, []);
 
     return ( 
@@ -93,7 +100,21 @@ function Details() {
                 </tbody>
             </table>
         </div>
-
+        <div>
+            <h3>Likes</h3>
+                {likes.length >0 ? (
+                    likes.map((like) => (
+                        <Link
+                            className="list-group-item"
+                            to={`/project/profile/${like.user._id}`}
+                        >
+                            {like.user.firstName} {like.user.lastName}
+                        </Link>
+                        ))
+                    ) : (
+                        <p>Be the first reviewer!</p>
+                    )}
+        </div>
     </div>
     );
 }
