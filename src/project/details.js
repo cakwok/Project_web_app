@@ -108,7 +108,20 @@ function Details() {
                             className="list-group-item"
                             to={`/project/profile/${like.user._id}`}
                         >
-                            {like.user.firstName} {like.user.lastName}
+                            <div style={{
+                                display: 'inline-block',
+                                backgroundColor: '#f2f2f2', // Background color of the rectangle
+                                borderRadius: '8px', // Rounded corners
+                                padding: '10px', // Padding within the rectangle
+                                marginBottom: '10px', // Margin below the rectangle
+                            }}
+                            >
+                                <img src={like.user.avatar} width="50" style={{
+                                    borderRadius: '50%',  
+                                    marginBottom: '10px'
+                                }}/>
+                                {like.user.firstName} {like.user.lastName}                           
+                            </div>
                         </Link>
                         ))
                     ) : (
