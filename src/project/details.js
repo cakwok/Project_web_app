@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as service from "./service";
+import { useDispatch } from "react-redux";
 
 function Details() {
 
@@ -9,31 +10,32 @@ function Details() {
     const [restaurant, setRestaurant] = useState({});
     const [displayAddress, setAddress] = useState();
     const [transaction, setTransaction] = useState();
+    const [currentUser, setCurrentUser] = useState({});
+
+    const dispatch = useDispatch();
+    const fetchUser = async () => {
+      const { payload } = await dispatch(service.profileThunk());
+      setCurrentUser(payload);
+    };
 
     const fetchRestaurant = async () => {
         const restaurant = await service.getRestaurant(id);
-        
         const restaurantReplaceJPG = {
             ...restaurant,
             photos: restaurant.photos.map((photo) => 
                 photo.replace(/o\.jpg$/, "348s.jpg")
             )
         };
-
         setRestaurant(restaurantReplaceJPG);
-
         const displayAddress = restaurant.location.display_address.join(' ');
         setAddress(displayAddress);
-
         const transaction = restaurant.transactions.join(',');
-        console.log(transaction);
         setTransaction(transaction);
       };
 
     useEffect(() => {
+        fetchUser();
         fetchRestaurant();
-        /*fetchTracks();
-        fetchLikes();*/
     }, []);
 
     return ( 
@@ -41,18 +43,21 @@ function Details() {
         <div className="table-responsive">
             <br/>
             <h5>{restaurant.name}
-            
-            <button
-                onClick={() => {
-                    service.userLikesRestaurant(restaurant.id, {
-                                                name: restaurant.name,
-                                                restaurantId: restaurant.id,
-                    });
-                }}
-                className="btn btn-success float-end"
-                >
-                Like
-            </button>
+                {currentUser ? (
+                    <button
+                        onClick={() => {
+                            service.userLikesRestaurant(restaurant.id, {
+                                                        name: restaurant.name,
+                                                        restaurantId: restaurant.id,
+                            });
+                        }}
+                        className="btn btn-success float-end"
+                        >
+                        Like
+                    </button>
+                 ) : (
+                    <p></p>
+                )}
             </h5>
             <table className="table">
                 <tbody>

@@ -33,26 +33,19 @@ export const getLikesForRestaurant = async (restaurantId) => {
 };
 
 export const fullSearch = async (query) => {
-
   const params = {
       location: query,
       sort_by: 'best_match',
     };
-
   const response = await axios.get(YELP_API_BASE, { params });
   return response.data;
 }
 
 export const getRestaurant = async (id) => {
-
   const response = await axios.get(
     `${YELP_API_BASE}/${id}`
   );
-  console.log("getRestaurant", response);
-
   const restaurants = response.data;
-  console.log("restaurants", restaurants);
-
   return restaurants;
 };
 
