@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { profile, logout, profileThunk, logoutThunk } from "./service";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
+import { profile, logout, profileThunk, logoutThunk } from "./user-service";
+import * as service from "./service";
+import * as userService from "./user-service";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const [currentUser, setCurrentUser] = useState({});
