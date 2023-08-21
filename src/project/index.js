@@ -5,6 +5,7 @@ import Register from "./register";
 import Details from "./details";
 import Home from "./home";
 import Search from "./search";
+import ProfileOthers from "./profile-others";
 
 function Project() {
   return (
@@ -16,6 +17,7 @@ function Project() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile/:userId" element={<ProfileOthers />} />
         <Route path="search" element={<Search />} />
         <Route path="search/:searchTerm" element={<Search />} />
         <Route path="details/:id" element={<Details />} />

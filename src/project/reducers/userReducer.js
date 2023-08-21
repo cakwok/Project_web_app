@@ -4,7 +4,7 @@ import {
   loginThunk,
   profileThunk,
   logoutThunk,
-} from "../service";
+} from "../user-service";
 
 const initialState = {
   currentUser: null,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login, loginThunk } from "./service";
+import { login, loginThunk } from "./user-service";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
@@ -49,9 +49,6 @@ function Login() {
       </div>
 
       <input onClick={handleLogin} className="btn btn-primary" value="Login" />
-      {/* </form> */}
-      <h4>Current User</h4>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   );
 }

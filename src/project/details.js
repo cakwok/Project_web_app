@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as service from "./service";
+import * as userservice from "./user-service";
 import { useDispatch } from "react-redux";
 
 function Details() {
@@ -24,11 +25,12 @@ function Details() {
     const fetchLikes = async () => {
         const likes = await service.getLikesForRestaurant(id);
         setLikes(likes);
+        console.log("likes", likes);
     };
 
     const dispatch = useDispatch();
     const fetchUser = async () => {
-      const { payload } = await dispatch(service.profileThunk());
+      const { payload } = await dispatch(userservice.profileThunk());
       setCurrentUser(payload);
     };
 

@@ -14,9 +14,7 @@ const RESTAURANT_API = "http://localhost:4000/api/restaurants";
 
 
 export const userReviewsRestaurant = async (restaurantId, restaurant) => {
-  
   const response = await api.post(`${RESTAURANT_API}/${restaurantId}/reviews`, restaurant);
-  console.log("response", response);
   return response.data;
 };
 
