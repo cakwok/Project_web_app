@@ -13,6 +13,13 @@ const YELP_RESTAURANT_API = `${YELP_API_BASE}/restaurants`;
 const RESTAURANT_API = "http://localhost:4000/api/restaurants";
 
 
+export const getAllReviewsForRestaurant = async () => {
+  const response = await api.get(
+    `http://localhost:4000/api/restaurants/reviews`
+  );
+  return response.data;
+};
+
 export const userReviewsRestaurant = async (restaurantId, restaurant) => {
   const response = await api.post(`${RESTAURANT_API}/${restaurantId}/reviews`, restaurant);
   return response.data;
