@@ -13,10 +13,12 @@ function Details() {
     const [currentUser, setCurrentUser] = useState({});
     const [likes, setLikes] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [reviewsDB, setReviewsDB] = useState([]);
 
     const fetchReviews = async () => {
-        const reviews = await service.getReviewsForRestaurant(id);
-        setReviews(reviews);
+        const reviewsDB = await service.getReviewsForRestaurant(id);
+        setReviewsDB(reviewsDB);
+        console.log(reviewsDB);
     };
 
     const fetchLikes = async () => {
@@ -49,7 +51,7 @@ function Details() {
         fetchUser();
         fetchRestaurant();
         fetchLikes();
-        //fetchReviews();
+        fetchReviews();
     }, []);
 
     const handleReviewSubmit = async () => {
@@ -115,8 +117,22 @@ function Details() {
                 </tbody>
             </table>
         </div>
-        <div>
-            <h5>Likes</h5>
+        <div style={{ marginTop: '10px' }}>
+            <h5>User Reviews</h5>
+                {reviewsDB ? (
+                    reviewsDB.map((reviewDB, index) => (
+                        <tr><td>
+                            <span key={index}> 
+                                {reviewDB.user.firstName} ': ' {reviewDB.reviews} 
+                            </span>  
+                        </td></tr>
+                    ))
+                ) : (
+                    <p>Be the first one to submit a review!</p>
+                )}               
+        </div>
+        <div style={{ marginTop: '30px' }}>
+            <h5 >Likes</h5>
                 {likes.length >0 ? (
                     likes.map((like) => (
                         <Link
@@ -142,19 +158,25 @@ function Details() {
                     ) : (
                         <p>Be the first reviewer!</p>
                     )}
-
+        </div>
+        <div style={{ marginTop: '30px' }}> 
             <h5>Submit a Review</h5>
-                <div style={{ display: 'flex',   alignItems: 'flex-end' , marginBottom: '30px'}}>
-                    <input className="form-control w-75"
-                           placeholder="Enter your review"
-                           onChange={(e) => setReviews(e.target.value)}
-                           style={{ height: '150px' }}
-                    />
-                    <button onClick={handleReviewSubmit}
-                            className="btn btn-primary float-end"
-                    >Submit
-                    </button>
-                </div>
+                {currentUser ? (
+                    <div style={{ display: 'flex',   alignItems: 'flex-end' , marginBottom: '30px'}}>
+                        <input className="form-control w-75"
+                            placeholder="Enter your review"
+                            onChange={(e) => setReviews(e.target.value)}
+                            style={{ height: '150px' }}
+                        />
+                        <button onClick={handleReviewSubmit}
+                                className="btn btn-primary float-end"
+                        >Submit
+                        </button>
+                    </div>
+                
+                ):(
+                    <Link to={`/project/login`}>Login to submit a review!</Link>
+                )}
         </div>
     </div>
     );
