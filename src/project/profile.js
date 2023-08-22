@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { profile, logout, profileThunk, logoutThunk } from "./user-service";
+import { profile, logout, profileThunk, logoutThunk,getUsers,removeUser,getUsersWithRole } from "./user-service";
 import * as service from "./service";
 import * as userService from "./user-service";
 import { Link } from "react-router-dom";
@@ -18,6 +18,10 @@ function Profile() {
   const [canFollow, setCanFollow] = useState(currentUser.canFollow || true);
   const [canSeeFollowers, setCanSeeFollowers] = useState(currentUser.canSeeFollowers || true);
   const [canSeeReviews, setCanSeeReviews] = useState(currentUser.canSeeReviews || true);
+  const [users, setUsers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [reviewsDB, setReviewsDB] = useState([]);
+  const userRole = 'admin';
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -27,6 +31,39 @@ function Profile() {
     setIsModalOpen(false);
     setNewFirstName("");
     setNewLastName("");
+  };
+
+  const openModal1 = () => {
+    setShowModal(true);
+  };
+
+  const closeModal1 = () => {
+    setShowModal(false);
+  };
+
+  const fetchAllReviews = async () => {
+    const reviewsDB = await service.getAllReviewsForRestaurant();
+    setReviewsDB(reviewsDB);
+    console.log("reviewsDB", reviewsDB);
+};
+
+  const fetchUsers = async () => {
+    try {
+      const usersData = await getUsers();
+      setUsers(usersData);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  const deleteUser = async (userId) => {
+    try {
+      await removeUser(userId);
+      fetchUsers();
+      setShowModal(false); // Close the modal after deletion
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
   };
 
   const updateUserName = async (newFirstName, newLastName) => {
@@ -110,8 +147,11 @@ function Profile() {
     await fetchFollowed(payload._id);
     await fetchReviews(payload._id);
   };
+
   useEffect(() => {
     fetchUser();
+    fetchUsers();
+    fetchAllReviews();
   }, [canFollow, canSeeFollowers, canSeeReviews]);
 
   const navigate = useNavigate();
@@ -212,7 +252,66 @@ function Profile() {
               </div>
           ))}
       </div>
-    </div>
+      <hr/>
+      {currentUser.role === userRole && (
+              <button className="btn btn-danger" onClick={openModal1}>Show Users</button>
+      )}
+            <Modal
+              isOpen={showModal}
+              onRequestClose={closeModal1}
+              contentLabel="Users Modal"
+            >
+              <h2>All Users</h2>
+              <ul>
+                <div className="row">
+                    <div className="col-2"> Name</div>
+                    <div className="col-2"> Role</div>
+                    {users.map((user) => (
+                      user._id !== currentUser._id && (
+                        <li key={user._id} style={{ marginBottom: '10px' }} className="row align-items-center mb-6"> 
+                          <div className="col-2">
+                              {user.firstName} {user.lastName}:
+                          </div>
+                          <div className="col-2">
+                              {user.role} 
+                            </div>
+                            <div className="col-2">
+                              <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user._id)}>Delete</button>
+                            </div>
+                        </li>
+                      )
+                    ))}
+                </div>
+              </ul>
+              <button className="btn btn-warning" style={{ marginTop: '30px' }} onClick={closeModal1}>
+                Close
+              </button>
+            </Modal>
+            {currentUser.role === "marketer" && (
+              <button className="btn btn-danger" onClick={openModal1}>Show Marketing Data</button>
+      )}
+            <Modal
+              isOpen={showModal}
+              onRequestClose={closeModal1}
+              contentLabel="Users Modal"
+            >
+                <h2>Marketing Data</h2>
+                <ul>
+                  <div style={{ marginTop: '30px' }}>
+                      <h5>Total number of reviews:</h5>
+                      {reviewsDB ? (
+                                  <span>{reviewsDB.length}</span>
+                              ) : (
+                                  <p>There's no user reviews in the system.</p>
+                      )}  
+                  </div>
+                </ul>
+                <button className="btn btn-warning" style={{ marginTop: '30px' }} onClick={closeModal1}>
+                  Close
+                </button>
+              </Modal>
+      </div>
+
   );
 }
 

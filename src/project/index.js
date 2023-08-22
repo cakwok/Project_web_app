@@ -6,11 +6,9 @@ import Details from "./details";
 import Home from "./home";
 import Search from "./search";
 import ProfileOthers from "./profile-others";
-import Nav from "./top-bar"
-import { AiOutlineSearch } from 'react-icons/ai';
-import { GoGear } from "react-icons/go";
+import Admin from "./admin";
 import TopBar from "./top-bar";
-
+import Marketer from "./marketer";
 
 function Project() {
   return (
@@ -32,6 +30,8 @@ function Project() {
                 <Route path="search" element={<Search />} />
                 <Route path="search/:searchTerm" element={<Search />} />
                 <Route path="details/:id" element={<Details />} />
+                <Route path="admin" element={<Admin />} />
+                <Route path="marketing" element={<Marketer />} />
               </Routes>
         </div>
      </div>

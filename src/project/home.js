@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as service from "./service.js";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { AiFillLike } from "react-icons/ai";
 
 function Home() {
   const navigate = useNavigate();
@@ -58,13 +59,13 @@ function Home() {
                   </tbody>
               </table>
         </div>
-        <div style={{ marginTop: '10px' }}>
-            <h5>User Reviews</h5>
+        <div style={{ marginTop: '10px' }} className="bottom-row">
+            <h5>Here are what foodies have mentioned!</h5>
             {reviewsDB ? (
                         reviewsDB.map((reviewDB, index) => (
                             <tr><td>
                                 <span key={index}> 
-                                    {reviewDB.user.firstName} ': ' {reviewDB.reviews} 
+                                  <AiFillLike style={{ color: "red" }} />{reviewDB.reviews} 
                                 </span>  
                             </td></tr>
                         ))

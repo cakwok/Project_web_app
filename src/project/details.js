@@ -25,7 +25,6 @@ function Details() {
     const fetchLikes = async () => {
         const likes = await service.getLikesForRestaurant(id);
         setLikes(likes);
-        console.log("likes", likes);
     };
 
     const dispatch = useDispatch();
@@ -87,13 +86,17 @@ function Details() {
             <table className="table">
                 <tbody>
                     <tr>
-                        {restaurant.photos ? (
-                            restaurant.photos.map((photo, index) => (
-                                <img key={index} src={photo} width="400" />
-                            ))
-                        ) : (
-                            <p>Loading...</p>
-                        )}
+                        <div className="table-responsive">
+                            {restaurant.photos ? (
+                                restaurant.photos.map((photo, index) => (
+                                    <td>
+                                    <img key={index} src={photo} width="400" />
+                                    </td>
+                                ))
+                            ) : (
+                                <p>Loading...</p>
+                            )}
+                        </div>
                     </tr>
                         <tr>
                             <td>
