@@ -75,10 +75,11 @@ const TopBar = () => {
                 )
             }
 
-
             <div style={{ marginTop: '10px', marginLeft: '10px' }}>
+                <Link to={"/project/profile "}>
                     <img src = {currentUser.avatar} 
                                 width="50" style={{ borderRadius: '50%', marginBottom: '10px'}}/>
+                 </Link>
             </div>
         </div>
     );

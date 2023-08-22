@@ -43,8 +43,6 @@ function Search() {
 
     return (
         <div>
-          <h2>Search</h2>
-
           <div style={{ display: 'flex' }}> 
             <input
                     className="form-control w-75"
@@ -73,8 +71,8 @@ function Search() {
                                     <td>
                                         <Link to={`/project/details/${business.id}`}>
                                             <div key={business.id}>
-                                                {business.name},
-                                                <img src={business.image_url} width="300" />     
+                                                {business.name}
+                                                <img src={business.image_url} width="300" align="center"/>     
                                             </div>
                                         </Link>
                                     </td>

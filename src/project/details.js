@@ -66,7 +66,7 @@ function Details() {
     return ( 
     <div>
         <div className="table-responsive" style={{ marginTop: '15px' }}>
-            <h5>{restaurant.name}
+            <h3>{restaurant.name}
                 {currentUser ? (
                     <button
                         onClick={() => {
@@ -82,7 +82,7 @@ function Details() {
                  ) : (
                     <p></p>
                 )}
-            </h5>
+            </h3>
             <table className="table">
                 <tbody>
                     <tr>
@@ -169,7 +169,7 @@ function Details() {
                 {currentUser ? (
                     <div style={{ display: 'flex',   alignItems: 'flex-end' , marginBottom: '30px'}}>
                         <input className="form-control w-75"
-                            placeholder="Enter your review"
+                            placeholder="Leave a comment!"
                             onChange={(e) => setReviews(e.target.value)}
                             style={{ height: '150px' }}
                         />

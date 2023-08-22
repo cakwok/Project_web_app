@@ -192,7 +192,7 @@ function Profile() {
         {canSeeReviews ? "Hide Reviews" : "Show Reviews"}
       </button> &nbsp;&nbsp;
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+      <Modal isOpen={isModalOpen} onRequestClose={closeModal} >
                           <h3>Update Details</h3>
                           <label htmlFor="newFirstName">New First Name:</label>
                           <input
@@ -243,7 +243,7 @@ function Profile() {
       </div>
       <hr/>
       <h3>Reviews I have written</h3>
-      <div className="list-group">
+      <div className="list-group" style={{marginBottom:"50px"}}>
           {review.map((r) => (
               <div className="list-group-item" key={r.restaurant._id}>
                   <h5>{r.restaurant.name}</h5>
@@ -252,64 +252,7 @@ function Profile() {
               </div>
           ))}
       </div>
-      <hr/>
-      {currentUser.role === userRole && (
-              <button className="btn btn-danger" onClick={openModal1}>Show Users</button>
-      )}
-            <Modal
-              isOpen={showModal}
-              onRequestClose={closeModal1}
-              contentLabel="Users Modal"
-            >
-              <h2>All Users</h2>
-              <ul>
-                <div className="row">
-                    <div className="col-2"> Name</div>
-                    <div className="col-2"> Role</div>
-                    {users.map((user) => (
-                      user._id !== currentUser._id && (
-                        <li key={user._id} style={{ marginBottom: '10px' }} className="row align-items-center mb-6"> 
-                          <div className="col-2">
-                              {user.firstName} {user.lastName}:
-                          </div>
-                          <div className="col-2">
-                              {user.role} 
-                            </div>
-                            <div className="col-2">
-                              <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user._id)}>Delete</button>
-                            </div>
-                        </li>
-                      )
-                    ))}
-                </div>
-              </ul>
-              <button className="btn btn-warning" style={{ marginTop: '30px' }} onClick={closeModal1}>
-                Close
-              </button>
-            </Modal>
-            {currentUser.role === "marketer" && (
-              <button className="btn btn-danger" onClick={openModal1}>Show Marketing Data</button>
-      )}
-            <Modal
-              isOpen={showModal}
-              onRequestClose={closeModal1}
-              contentLabel="Users Modal"
-            >
-                <h2>Marketing Data</h2>
-                <ul>
-                  <div style={{ marginTop: '30px' }}>
-                      <h5>Total number of reviews:</h5>
-                      {reviewsDB ? (
-                                  <span>{reviewsDB.length}</span>
-                              ) : (
-                                  <p>There's no user reviews in the system.</p>
-                      )}  
-                  </div>
-                </ul>
-                <button className="btn btn-warning" style={{ marginTop: '30px' }} onClick={closeModal1}>
-                  Close
-                </button>
-              </Modal>
+
       </div>
 
   );
