@@ -27,11 +27,13 @@ function Marketer() {
                 <ul>
                   <div style={{ marginTop: '30px' }}>
                       <h5>Total number of reviews:</h5>
-                      {reviewsDB ? (
-                                  <span>{reviewsDB.length}</span>
-                              ) : (
-                                  <p>There's no user reviews in the system.</p>
-                      )}  
+                      <div className="col-3 position-relative">
+                        {reviewsDB ? (
+                                    <span style={{ display: 'flex', justifyContent: 'flex-end' }}>{reviewsDB.length}</span>
+                                ) : (
+                                    <p>There's no user reviews in the system.</p>
+                        )}  
+                      </div>
                   </div>
                 </ul>
         </div>

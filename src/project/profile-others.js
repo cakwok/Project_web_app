@@ -61,7 +61,7 @@ function ProfileOthers() {
         <h3>
           {user.firstName} {user.lastName}
         </h3>
-        <h4> {user.role} </h4>
+        {/*<h4> {user.role} </h4>*/}
         {currentUser && user.canFollow ? (
           <button onClick={followUser} className="btn btn-primary float-end">
             Follow

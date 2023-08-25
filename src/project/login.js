@@ -16,7 +16,8 @@ function Login() {
     e.preventDefault();
     // const currentUser = await login(user);
     await dispatch(loginThunk(user));
-    navigate("/project/profile");
+    //navigate("/project/profile");
+    navigate("/project/member");
     // console.log(currentUser);
     // setUser(currentUser);
   };

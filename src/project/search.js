@@ -60,18 +60,24 @@ function Search() {
           </div>
 
           <br /> 
-          <h2>Restaurants</h2>          
+          { query ? (
+            <h2>Restaurants in {query.charAt(0).toUpperCase() + query.slice(1)}</h2>
+          ) : (
+            <h2>Restaurants</h2>
+          )
+          }
+                    
           
-          <div className="table-responsive">
+          <div className="table-responsive" style={{marginTop:"10px"}}>
             <table className="table">
                 <tbody>
                     <tr>
                     {results.businesses ? (
                         results.businesses.map((business) => (                           
                                     <td>
-                                        <Link to={`/project/details/${business.id}`}>
-                                            <div key={business.id}>
-                                                {business.name}
+                                        <Link to={`/project/details/${business.id}`} style={{ textDecoration: 'none' }}>
+                                            <div key={business.id} style={{ textAlign: 'center' }} >
+                                                <h6>{business.name}</h6>
                                                 <img src={business.image_url} width="300" align="center"/>     
                                             </div>
                                         </Link>

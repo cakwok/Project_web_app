@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { register, registerThunk } from "./user-service";
 import { useDispatch } from "react-redux";
+import { login, loginThunk } from "./user-service";
 
 function Register() {
   const [user, setUser] = useState({
@@ -17,11 +18,9 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    // const newUser = await register(user);
     await dispatch(registerThunk(user));
+    await dispatch(loginThunk(user));
     navigate("/project/profile");
-    // console.log(newUser);
-    // setUser(newUser);
   };
 
   const handleUserTypeChange = (e) => {

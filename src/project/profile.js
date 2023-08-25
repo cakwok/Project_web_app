@@ -159,7 +159,8 @@ function Profile() {
   const handleLogout = async () => {
     // await logout();
     await dispatch(logoutThunk());
-    navigate("/project/login");
+    //navigate("/project/login");
+    navigate("/project/home")
   };
 
   return (
@@ -192,7 +193,7 @@ function Profile() {
         {canSeeReviews ? "Hide Reviews" : "Show Reviews"}
       </button> &nbsp;&nbsp;
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onRequestClose={closeModal} >
+      <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{ overlay: { zIndex: 1000 }, content: { zIndex: 1001 } }} >
                           <h3>Update Details</h3>
                           <label htmlFor="newFirstName">New First Name:</label>
                           <input
@@ -246,7 +247,12 @@ function Profile() {
       <div className="list-group" style={{marginBottom:"50px"}}>
           {review.map((r) => (
               <div className="list-group-item" key={r.restaurant._id}>
-                  <h5>{r.restaurant.name}</h5>
+                    <Link
+                      className="list-group-item"
+                      to={`/project/details/${r.restaurantId}`} style={{ border: 'none', marginLeft: '-15px' }}
+                    >
+                             {r.restaurant.name} 
+                  </Link>
                   <h6>Review:</h6>
                   <p>{r.reviews}</p>
               </div>

@@ -9,6 +9,7 @@ import ProfileOthers from "./profile-others";
 import Admin from "./admin";
 import TopBar from "./top-bar";
 import Marketer from "./marketer";
+import Member from "./member";
 
 function Project() {
   return (
@@ -16,8 +17,8 @@ function Project() {
       <img src = "https://s3-media0.fl.yelpcdn.com/assets/public/developers.yji-a68f827814c0cf08bcb3.png" />
 
       <div className="row">
-        <div className="col-2 position-relative">
-            <TopBar />
+        <div className="col-12 col-md-2 position-relative d-md-block">
+          <TopBar />
         </div>
 
         <div className="col-10">
@@ -32,6 +33,7 @@ function Project() {
                 <Route path="details/:id" element={<Details />} />
                 <Route path="admin" element={<Admin />} />
                 <Route path="marketing" element={<Marketer />} />
+                <Route path="member" element={<Member />} />
               </Routes>
         </div>
      </div>

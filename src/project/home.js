@@ -38,8 +38,8 @@ function Home() {
   return (
     <div>
       <h1>Home for the best taste!</h1>
-      <div>
-        <table className="table">
+      <div className="table-responsive" style={{ marginTop: '15px' }}>
+        <table className="table table-borderless">
                   <tbody>
                       <tr>
                       {results.businesses ? (
@@ -56,16 +56,16 @@ function Home() {
                           <p>Loading...</p>
                       )}
                       </tr>
-                  </tbody>
-              </table>
+                    </tbody>
+          </table>
         </div>
-        <div style={{ marginTop: '10px' }} className="bottom-row">
+        <div style={{ marginTop: '10px', marginBottom: '25px' }}>
             <h5>Here are what foodies have mentioned!</h5>
             {reviewsDB ? (
                         reviewsDB.map((reviewDB, index) => (
                             <tr><td>
                                 <span key={index}> 
-                                  <AiFillLike style={{ color: "red" }} />{reviewDB.reviews} 
+                                  <AiFillLike style={{ color: "red" }} />{' '}{reviewDB.reviews} 
                                 </span>  
                             </td></tr>
                         ))

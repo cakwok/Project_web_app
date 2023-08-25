@@ -47,7 +47,7 @@ function Admin() {
                         user._id !== currentUser._id && (
                         <li key={user._id} style={{ marginBottom: '10px' }} className="row align-items-center mb-6"> 
                             <div className="col-3">
-                                {user.firstName} {user.lastName}:
+                                {user.firstName} {user.lastName}
                             </div>
                             <div className="col-2">
                                 {user.role} 

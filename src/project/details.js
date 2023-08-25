@@ -19,12 +19,13 @@ function Details() {
     const fetchReviews = async () => {
         const reviewsDB = await service.getReviewsForRestaurant(id);
         setReviewsDB(reviewsDB);
-        console.log(reviewsDB);
     };
 
+    const [loading, setLoading] = useState(true);
     const fetchLikes = async () => {
         const likes = await service.getLikesForRestaurant(id);
         setLikes(likes);
+        console.log("likes", likes);
     };
 
     const dispatch = useDispatch();
@@ -51,7 +52,8 @@ function Details() {
     useEffect(() => {
         fetchUser();
         fetchRestaurant();
-        fetchLikes();
+        fetchLikes()
+    ;
         fetchReviews();
     }, []);
 
@@ -64,7 +66,7 @@ function Details() {
     };
 
     return ( 
-    <div>
+    <div style={{ marginBottom: '30px' }}>
         <div className="table-responsive" style={{ marginTop: '15px' }}>
             <h3>{restaurant.name}
                 {currentUser ? (
@@ -79,10 +81,10 @@ function Details() {
                         >
                         Like
                     </button>
-                 ) : (
-                    <p></p>
-                )}
+                 ) : null}
             </h3>
+        </div>
+        <div className="table-responsive" >
             <table className="table">
                 <tbody>
                     <tr>
@@ -98,6 +100,12 @@ function Details() {
                             )}
                         </div>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+        <div className="table-responsive"  >
+            <table className="table">
+                <tbody>
                         <tr>
                             <td>
                                 <p style={{ display: 'inline' }}>
@@ -138,11 +146,11 @@ function Details() {
         </div>
         <div style={{ marginTop: '30px' }}>
             <h5 >Likes</h5>
-                {likes.length >0 ? (
+                {likes  ? (
                     likes.map((like) => (
                         <Link
                             className="list-group-item"
-                            to={`/project/profile/${like.user._id}`}
+                            to={`/project/profile/${like.user?._id}`}
                         >
                             <div style={{
                                 display: 'inline-block',
@@ -152,17 +160,19 @@ function Details() {
                                 marginBottom: '10px', // Margin below the rectangle
                             }}
                             >
-                                <img src={like.user.avatar} width="50" style={{
+                                <img src={like.user?.avatar} width="50" style={{
                                     borderRadius: '50%',  
                                     marginBottom: '10px'
                                 }}/>
-                                {like.user.firstName} {like.user.lastName}                           
+                                {like.user?.firstName} {like.user?.lastName}                           
                             </div>
                         </Link>
                         ))
                     ) : (
                         <p>Be the first reviewer!</p>
                     )}
+              
+
         </div>
         <div style={{ marginTop: '30px' }}> 
             <h5>Submit a Review</h5>
